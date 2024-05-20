@@ -9,7 +9,12 @@ const config: Config = {
     ],
 
     theme: {
-        extend:{}
+        extend:{
+            fontFamily:{
+                title:['var(--font-alegreya)'],
+                body:['var(--font-mulish)'],
+            }
+        }
     },
     fontSize:{
         xs:'14px',

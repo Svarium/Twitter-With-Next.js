@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Mulish, Alegreya } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const mulish = Mulish({
+   subsets: ["latin"],
+   variable:'--font-mulish',
+  
+  });
+const alegreya = Alegreya({
+   subsets: ["latin"],
+   variable:'--font-alegreya',
+
+  });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,11 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        
-        {children}
-        
+    <html lang="en" className={`${alegreya.variable} ${mulish.variable}`}>
+      <body>                    
+        {children}        
         </body>
     </html>
   );
