@@ -1,4 +1,5 @@
 import { MessageType } from "@/types/message.types"; //importo mis propiedades tipadas
+import Image from "next/image";
 import Link from "next/link";
 
 type MessageProps = {
@@ -20,6 +21,14 @@ const Message = ({message} : MessageProps ) => { //indico el tipado para el obje
         </div>
         </div>
         <p>{message.message}</p>
+        <div>
+            <Image                
+                 width={300}
+                 height={300}
+                 alt="Foto de un tweet"
+                 src="https://th.bing.com/th/id/OIP.-FvdR-j8ePDCHk8xz1IL6wHaEK?rs=1&pid=ImgDetMain"   
+            />
+        </div>
      </div>                       
     </div>
 }
