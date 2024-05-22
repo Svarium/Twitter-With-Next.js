@@ -1,22 +1,20 @@
 import Message from "@/components/messages/Message";
 import UserTabs from "@/components/users/UserTabs";
+import { getUserData, getUserMessages, getUserMessagesReplies } from "@/services/api.service";
 import Image from "next/image";
 import Link from "next/link";
 
 
-const getUserData = async (username:string) : Promise<UserType> => {
-    const res = await fetch(`http://localhost:8080/api/public/users/${username}`)
 
-    if(!res.ok){
-        throw new Error('Failed to retrieve users');
-    }
-
-   return res.json();
-}
 
 const UserPage = async ({ params }: { params: { username: string } }) => {
 
-    const user = await getUserData(params.username) 
+    const userPromise =  getUserData(params.username); 
+    const userMessagesPromise =  getUserMessages(params.username);
+    const userMessagesRepliesPromise =  getUserMessagesReplies(params.username);
+
+    const [user, userMessages, userMessagesReplies] = await Promise.all([userPromise, userMessagesPromise, userMessagesRepliesPromise])
+
 
     return <main className="flex flex-col bg-gray-100 p-8">
 
@@ -45,7 +43,7 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
                 <div><span className="font-semibold">{user.followingCount}</span>{user.followingCount} Siguiendo</div>
             </div>
         </section>
-        <UserTabs messages={[]} replies={[]} />
+        <UserTabs messages={userMessages.content} replies={userMessagesReplies.content} />
     </main>
 }
 

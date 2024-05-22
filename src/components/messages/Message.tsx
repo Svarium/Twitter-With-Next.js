@@ -7,28 +7,27 @@ type MessageProps = {
 }
 
 const Message = ({message} : MessageProps ) => { //indico el tipado para el objeto message
-    return <div className="flex">
-    <div className="rounded-full p-5 bg-gray-300 w-16 text-center mb-4">
-<span className="font-semibold text-sm">AR</span>
-     </div>
-     <div className="flex flex-col ml-4 mt-2">
+    return <div className="grid grid-cols-12">
+    <div className="w-full mt-1 text-center mb-4  h-20 col-span-2 flex items-center justify-center">
+                <Image 
+                    className="rounded-full"
+                    src={message.user.photoUrl}
+                    width={60}
+                      height={60}
+                    priority                   
+                    alt="Picture of the author"
+                />
+            </div>
+     <div className="flex flex-col  mt-2 col-span-10">
         <div className="flex">
         <h3>
-            {message.name}
+            {message.user.name}
         </h3>
         <div className="text-mb ml-2 text-gray-600 cursor-pointer">
-            <Link href={`/users/${message.username}`}>@{message.username} </Link>
+            <Link href={`/users/${message.user.username}`}>@{message.user.username} </Link>
         </div>
         </div>
-        <p>{message.message}</p>
-        <div>
-            <Image                
-                 width={300}
-                 height={300}
-                 alt="Foto de un tweet"
-                 src="https://th.bing.com/th/id/OIP.-FvdR-j8ePDCHk8xz1IL6wHaEK?rs=1&pid=ImgDetMain"   
-            />
-        </div>
+        <p>{message.message}</p>       
      </div>                       
     </div>
 }
