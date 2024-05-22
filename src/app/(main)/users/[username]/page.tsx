@@ -2,37 +2,21 @@ import Message from "@/components/messages/Message";
 import UserTabs from "@/components/users/UserTabs";
 import Image from "next/image";
 import Link from "next/link";
-import ProfilePic from "../../../../../public/anomander-profile.jpg";
 
-const UserPage = ({ params }: { params: { username: string } }) => {
 
-    const user = {
-        username: params.username,
-        name: 'Anomander Rake',
-        bio: 'Soy Anomander Rake, hijo de oscuridad y llevo mi espada dragnipur en mi espalda.',
-        followersCount: 15,
-        followingCount: 3,
-        messages: [
-            {
-                name: 'Anomander Rake',
-                username: 'Anomander',
-                message: 'Segundo mensaje',
-                repliesCount: 13
-            },
-            {
-                name: 'Anomander Rake',
-                username: 'Anomander',
-                message: 'Primer mensaje',
-                repliesCount: 13,
-            },
-        ],
-        replies: [{
-            message: 'Mi respuesta',
-            repliesCount: 0,
-        },
-        ]
+const getUserData = async (username:string) : Promise<UserType> => {
+    const res = await fetch(`http://localhost:8080/api/public/users/${username}`)
 
+    if(!res.ok){
+        throw new Error('Failed to retrieve users');
     }
+
+   return res.json();
+}
+
+const UserPage = async ({ params }: { params: { username: string } }) => {
+
+    const user = await getUserData(params.username) 
 
     return <main className="flex flex-col bg-gray-100 p-8">
 
@@ -41,10 +25,9 @@ const UserPage = ({ params }: { params: { username: string } }) => {
             <div className="rounded-full  text-center mb-4 block relative w-20 h-20">
                 <Image 
                     className="rounded-full"
-                    src={ProfilePic}                    
+                    src={user.photoUrl}                    
                     fill
-                    priority
-                    placeholder="blur"
+                    priority                   
                     alt="Picture of the author"
                 />
             </div>
@@ -62,7 +45,7 @@ const UserPage = ({ params }: { params: { username: string } }) => {
                 <div><span className="font-semibold">{user.followingCount}</span>{user.followingCount} Siguiendo</div>
             </div>
         </section>
-        <UserTabs messages={user.messages} replies={[]} />
+        <UserTabs messages={[]} replies={[]} />
     </main>
 }
 
