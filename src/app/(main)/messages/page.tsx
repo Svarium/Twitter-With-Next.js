@@ -23,7 +23,7 @@ import Link from "next/link";
 
     <section className="flex flex-col mb-8">
 
-    {
+            {
                 messages.map((message, index) =>
                     <Message key={`${index}`} message={message}></Message>
                 )

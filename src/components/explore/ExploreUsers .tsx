@@ -18,7 +18,7 @@ const ExploreUsers = ({ users }: ExploreUsersProps) => {
                 <UserCard user={user} key={`trending-user-${index}`} layout={UserCardLayout.VERTICAL}/>                
             )}
             {users.length > 4 &&
-                <Link href="/explorar?type=hash">
+                <Link href="/explore?type=USERS">
                     <div className="text-center link-primary">
                         Ver más
                     </div>
