@@ -14,7 +14,7 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
     const userMessagesPromise =  UserApi.getUserMessages(params.username);
     const userMessagesRepliesPromise =  UserApi.getUserMessagesReplies(params.username);
 
-    const [user, userMessages, userMessagesReplies] = await Promise.all([userPromise, userMessagesPromise, userMessagesRepliesPromise])
+    const [user, userMessages, userMessagesReplies] = await Promise.all([userPromise, userMessagesPromise, userMessagesRepliesPromise]);
 
 
     return <main className="flex flex-col bg-gray-100 p-8">
