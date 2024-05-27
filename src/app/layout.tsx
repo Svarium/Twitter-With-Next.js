@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mulish, Alegreya } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const mulish = Mulish({
    subsets: ["latin"],
@@ -25,7 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${alegreya.variable} ${mulish.variable}`}>
-      <body>                    
+      <body>   
+        <header>   
+    <nav>    
+          <div>
+          <Link href="/explore">LOGO</Link>
+        </div>
+    </nav>
+    </header>
+
         {children}        
         </body>
     </html>
