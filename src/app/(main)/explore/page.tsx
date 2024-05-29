@@ -13,8 +13,8 @@ const [hashes, users] = await Promise.all([hashesPromise, usersPromise]);
 
     <section className="flex flex-col mb-8">   
         <ExploreTabs 
-        hashtag={hashes.content} 
-        users={users.content} 
+        hashtag={hashes} 
+        users={users} 
        initialTab={searchParams?.type} /> 
     </section>
     </main>    
