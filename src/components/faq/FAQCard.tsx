@@ -2,7 +2,7 @@ import Link from "next/link";
 
 type FAQCardProps = {
     label: string;
-    href: string;
+    href: string;  
 }
 
 
