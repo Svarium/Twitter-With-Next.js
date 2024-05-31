@@ -11,9 +11,7 @@ type MessageProps = {
 
 const Message = ({message} : MessageProps ) => { //indico el tipado para el objeto message
     
-    const router = useRouter()
-
-    
+    const router = useRouter()   
 
     return <UserCard user={message.user}  layout={UserCardLayout.HORIZONTAL}> 
     <div className="flex flex-col">

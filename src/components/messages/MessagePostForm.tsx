@@ -5,12 +5,16 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
+type MessagePostFormType = {
+    parentId?:string
+}
+
 type FormData = {
-    message:string
+    message:string,   
 }
 
 
-const MessagePostForm = () => {  
+const MessagePostForm = ({parentId}: MessagePostFormType) => {  
      
     const {register, handleSubmit, resetField, setFocus} = useForm<FormData>();
 
@@ -19,7 +23,7 @@ const MessagePostForm = () => {
     }, [])
 
     const onSubmit = async (data:FormData) => {
-    const response = await messageApi.postMessage(data.message);
+    const response = await messageApi.postMessage(data.message, parentId);
     resetField("message")  
     setFocus("message")
     }

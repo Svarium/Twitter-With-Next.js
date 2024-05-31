@@ -1,4 +1,5 @@
 import Message from "@/components/messages/Message";
+import MessagePostForm from "@/components/messages/MessagePostForm";
 import messageApi from "@/services/messages/messages.service";
 
 
@@ -17,13 +18,17 @@ const MessagePage = async ({params}:{params:{id:string}}) => {
     <Message message={message}></Message>      
     </section>
 
-        <div>
+    <section className="flex flex-col mb-8">
+    <MessagePostForm parentId={params.id} />   
+    </section>
+
+        <section className="flex flex-col w-full">
             {
                 repliesPage.content.map((message, index) =>
                     <Message key={`${index}`} message={message}></Message>
                 )
             }
-        </div>
+        </section>
 </main>
     
 }
