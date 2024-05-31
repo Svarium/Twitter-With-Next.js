@@ -20,3 +20,20 @@ export const httpGetPublic = async<T>(endpoint: string, params?:URLSearchParams)
     return httpGet(`${API_PUBLIC_ENDPOINT}${endpoint}`, params);
 }
 
+export const httpPost = async<T>(endpoint: string, body:object) : Promise<T>  => {
+    const res = await fetch(`${API_URL}${endpoint}`,{
+       method: "POST" ,
+       headers: {
+        'Content-Type': 'application/json' ,
+        "Authorization": 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJzb2NpYWwtYXBpIiwiaWF0IjoxNjkxNTE0MzE5LCJ1c2VybmFtZSI6ImFuYWtpbiJ9.Z4mWYcs_BmAys_3MN62Xzi7sBwMoXZqH95U_SQkKBd4'
+       },
+       body: JSON.stringify(body)
+    });
+
+    if(!res.ok){
+        throw new Error('Failed to retrieve: ' + endpoint);
+    }
+
+    return res.json()
+}
+
