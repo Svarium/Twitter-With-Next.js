@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Mulish, Alegreya } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 import NavBar from "@/components/layout/NavBar";
 
 const mulish = Mulish({
