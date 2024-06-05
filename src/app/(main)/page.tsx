@@ -1,6 +1,3 @@
-import MessageFeed from "@/components/messages/MessageFeed";
-import MessagePostForm from "@/components/messages/MessagePostForm";
-import SearchBar from "@/components/search/SearchBar";
 import messageApi from "@/services/messages/messages.service";
 import IndexPageContainer from "./page.container";
 
