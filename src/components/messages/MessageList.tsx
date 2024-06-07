@@ -5,10 +5,10 @@ import Message from "./Message";
 
 
 const MessageList = () => {
-  const {messagePage} = useMessages();
+  const {messages} = useMessages();
     return <>
     {
-    messagePage.content?.map((message, index) =>
+    messages?.map((message, index) =>
       <Message key={`${index}`} message={message}></Message>
     )
   }    
