@@ -1,9 +1,10 @@
 import authApi from "@/services/auth/auth.service";
 import { AccessDeniedError } from "@/services/common/http.errors";
-import {NextResponse, type NextRequest } from "next/server";
+import {NextResponse} from "next/server";
 import { createClient } from "redis";
 import * as yup from "yup";
 import {v4 as uuidv4} from 'uuid';
+import { json } from "stream/consumers";
 
 const schema = yup.object({
    username: yup.string().required(),
@@ -18,7 +19,7 @@ client.connect().then(() => {
    console.log('connected to redis');    
  })  
 
-const ONE_MINUTE = 60;
+const TEN_MINUTE = 60 * 10;
 
 
 export async function POST(request: Request) {
@@ -26,11 +27,20 @@ export async function POST(request: Request) {
    const {username, password} = await schema.validate(await request.json());
    try {      
       const loginResponse = await authApi.login(username, password); 
-      const sessionId = uuidv4();    
+      const sessionId = uuidv4();   
+      const now = new Date();
+      const expireAt = new Date(now.getTime() + TEN_MINUTE * 1000).toUTCString();
+      client.set(sessionId, loginResponse.accessToken, {EX: TEN_MINUTE})    
 
-      client.set(sessionId, loginResponse.accessToken, {EX: ONE_MINUTE})
+      const authCookie = `SocialSessionID=${sessionId}; Expires=${expireAt} Domain=localhost; Secure; HttpOnly`;      
       
-      return NextResponse.json({sessionId, username})
+     
+      return new Response(JSON.stringify(loginResponse.user),{
+         status:200,
+         headers: {'Set-Cookie': authCookie},
+      })
+
+
    } catch (e) {
       if (e instanceof AccessDeniedError) {
          return new Response(JSON.stringify({error:'Invalid credentials for user: ' + username}), {
