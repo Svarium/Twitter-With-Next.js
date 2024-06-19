@@ -4,7 +4,6 @@ import {NextResponse} from "next/server";
 import { createClient } from "redis";
 import * as yup from "yup";
 import {v4 as uuidv4} from 'uuid';
-import { json } from "stream/consumers";
 
 const schema = yup.object({
    username: yup.string().required(),
@@ -26,7 +25,7 @@ export async function POST(request: Request) {
   
    const {username, password} = await schema.validate(await request.json());
    try {      
-      const loginResponse = await authApi.login(username, password); 
+      const loginResponse = await authApi.loginInternal(username, password); 
       const sessionId = uuidv4();   
       const now = new Date();
       const expireAt = new Date(now.getTime() + TEN_MINUTE * 1000).toUTCString();

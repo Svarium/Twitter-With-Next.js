@@ -1,13 +1,13 @@
 import { UserType } from "@/types/user.types";
-import { httpGetPublic } from "../common/http.service";
 import { PageType } from "@/types/pagination.types";
 import { MessageType } from "@/types/message.types";
+import httpInternalApi from "../common/http.internal.service";
 
 class UserAPI {
 
-    getUserData = async (username:string) : Promise<UserType> => httpGetPublic(`/users/${username}`);
-    getUserMessages = async (username:string) : Promise<PageType<MessageType>> => httpGetPublic(`/users/${username}/messages`);
-    getUserMessagesReplies = async (username:string) : Promise<PageType<MessageType>> => httpGetPublic(`/users/${username}/messages/replies`);
+    getUserData = async (username:string) : Promise<UserType> => httpInternalApi.httpGetPublic(`/users/${username}`);
+    getUserMessages = async (username:string) : Promise<PageType<MessageType>> => httpInternalApi.httpGetPublic(`/users/${username}/messages`);
+    getUserMessagesReplies = async (username:string) : Promise<PageType<MessageType>> => httpInternalApi.httpGetPublic(`/users/${username}/messages/replies`);
 
 }
 
