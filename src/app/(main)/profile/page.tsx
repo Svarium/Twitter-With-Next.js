@@ -1,29 +1,22 @@
 import UserApi from "@/services/users/users.service";
 import UserPageContainerAsync from "@/components/users/UserPageContainerAsync";
 import { cookies } from "next/headers";
-import { createClient } from "redis";
+import authService from "@/services/auth/auth.service";
 
-
-const client = createClient({
-    url:'redis://default:SocialNetworkPass@localhost:6379'
- })
-  
-  client.connect().then(() => {
-    console.log('connected to redis');    
-  }) 
 
 
 const ProfilePage = async () => { 
 
     const cookieStore = cookies();
-    const sessionId = cookieStore.get('SocialSessionID');    
-    const accesToken = await client.get(sessionId?.value ?? '')
+    const sessionId = cookieStore.get('SocialSessionID')?.value ?? '';  
+    const accessToken = await authService.getAccessToken(sessionId)  
+
     
-    if(!accesToken) return new Response(JSON.stringify({error: 'access denied'}),{
+    if(!accessToken) return new Response(JSON.stringify({error: 'access denied'}),{
         status:403,
        })
 
-    const me = await UserApi.getMeInternal(accesToken);
+    const me = await UserApi.getMeInternal(accessToken);
 
     return <UserPageContainerAsync username={me.username} />
 }
