@@ -1,6 +1,5 @@
 import authApi from "@/services/auth/auth.service";
 import { AccessDeniedError } from "@/services/common/http.errors";
-import {NextResponse} from "next/server";
 import { createClient } from "redis";
 import * as yup from "yup";
 import {v4 as uuidv4} from 'uuid';
@@ -31,7 +30,7 @@ export async function POST(request: Request) {
       const expireAt = new Date(now.getTime() + TEN_MINUTE * 1000).toUTCString();
       client.set(sessionId, loginResponse.accessToken, {EX: TEN_MINUTE})    
 
-      const authCookie = `SocialSessionID=${sessionId}; Expires=${expireAt} Domain=localhost; Secure; HttpOnly`;      
+      const authCookie = `SocialSessionID=${sessionId}; Expires=${expireAt};Domain=localhost; HttpOnly; Path=/`; ;      
       
      
       return new Response(JSON.stringify(loginResponse.user),{

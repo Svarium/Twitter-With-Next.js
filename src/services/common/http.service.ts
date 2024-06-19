@@ -13,12 +13,18 @@ export class HttpBaseAPI {
     }
 
 
-    async httpGet<T>(endpointSuffix: string, params?:URLSearchParams) : Promise<T> {
+    async httpGet<T>(endpointSuffix: string, params?:URLSearchParams, accesToken?:string) : Promise<T> {
         const res = await fetch(`${this.privateEndpoint}${endpointSuffix}${params ? `?${params}` : ''}`,{
-            cache:'no-cache'
+            cache:'no-cache',
+            headers: !accesToken ? {'Content-Type': 'application/json'} : {
+                'Content-Type': 'application/json' ,
+                "Authorization": `Bearer ${accesToken}` 
+            }
         });
     
         if(!res.ok){
+            console.log(`${res.status} - ${res.statusText} `);
+            
             throw new Error('Failed to retrieve: ' + endpointSuffix);
         }
     
@@ -29,14 +35,13 @@ export class HttpBaseAPI {
         return this.httpGet(`${this.publicEndpointSuffix}${endpointSuffix}`, params);
 }
 
-    async httpPost <T>(endpointSuffix: string, body:object) : Promise<T>{
+    async httpPost <T>(endpointSuffix: string, body:object, accesToken?:string) : Promise<T>{
         const res = await fetch(`${this.privateEndpoint}${endpointSuffix}`,{
             method: "POST" ,
-            headers : {'Content-Type': 'application/json'},
-           /*  headers: skipAuthorization ? {'Content-Type': 'application/json'} : {
-             'Content-Type': 'application/json' ,
-             "Authorization": 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJzb2NpYWwtYXBpIiwiaWF0IjoxNjkxNTE0MzE5LCJ1c2VybmFtZSI6ImFuYWtpbiJ9.Z4mWYcs_BmAys_3MN62Xzi7sBwMoXZqH95U_SQkKBd4'
-            }, */
+            headers: !accesToken ? {'Content-Type': 'application/json'} : {
+                'Content-Type': 'application/json' ,
+                "Authorization": `Bearer ${accesToken}` 
+            },
             body: JSON.stringify(body)
          });
      
