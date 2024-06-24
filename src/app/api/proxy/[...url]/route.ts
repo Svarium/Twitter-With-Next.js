@@ -1,6 +1,19 @@
 import { headers} from "next/headers";
 import httpInternalApi from "@/services/common/http.internal.service";
-import { split } from "postcss/lib/list";
+
+
+
+export async function GET(request: Request) {
+   const url =  request.url.split('/proxy')[1];
+   console.log(url);   
+   const accessToken = headers().get('x-social-access-token');    
+  
+    const response = await  httpInternalApi.httpGet(url, undefined, accessToken ?? undefined);
+     
+      return new Response(JSON.stringify(response),{
+         status:200
+      })    
+}
 
 export async function POST(request: Request) {
    const url =  request.url.split('/proxy')[1];
@@ -12,6 +25,5 @@ export async function POST(request: Request) {
      
       return new Response(JSON.stringify(response),{
          status:200
-      })  
-  
+      })    
 }
