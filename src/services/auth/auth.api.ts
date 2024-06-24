@@ -1,8 +1,11 @@
 import httpExternalApi from "../common/http.external.service";
 import httpInternalApi from "../common/http.internal.service";
-import { LoginResponseType } from "@/types/auth.types";
+import { LoginResponseType, RedisResponseType } from "@/types/auth.types";
 
 class AuthAPI {
+
+    getRedisValue = async (key:string) : Promise<RedisResponseType> => 
+        httpExternalApi.httpGet(`/redis`, new URLSearchParams({key:key}), process.env.REDIS_API_TOKEN);
 
     login = async (username:string, password:string) : Promise<LoginResponseType> => 
         httpExternalApi.httpPost(`/auth/login`,{username:username, password:password});   

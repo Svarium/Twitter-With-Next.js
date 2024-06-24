@@ -1,22 +1,11 @@
-import authApi from "@/services/auth/auth.api";
 import { AccessDeniedError } from "@/services/common/http.errors";
-import { createClient } from "redis";
 import * as yup from "yup";
-import {v4 as uuidv4} from 'uuid';
 import authService from "@/services/auth/auth.service";
 
 const schema = yup.object({
    username: yup.string().required(),
    password: yup.string().required()
 }).required();
-
-const client = createClient({
-   url:'redis://default:SocialNetworkPass@localhost:6379'
-})
-
-client.connect().then(() => {
-   console.log('connected to redis');    
- })  
 
 
 export async function POST(request: Request) {

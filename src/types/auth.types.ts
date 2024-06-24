@@ -10,3 +10,7 @@ export type AuthResponseType = {
     user: UserType;
     expireAt: string;
 }
+
+export type RedisResponseType = {
+  value:string;
+}
