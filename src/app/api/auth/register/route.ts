@@ -9,7 +9,7 @@ export async function POST(request: Request) {
    try {      
       const registerResponse = await authService.register(username, password, name, photoUrl) 
 
-      const authCookie = `SocialSessionID=${registerResponse.sessionId}; Expires=${registerResponse.expireAt};Domain=localhost; HttpOnly; Path=/`; ;      
+      const authCookie = `SocialSessionID=${registerResponse.sessionId}; Expires=${registerResponse.expireAt};Domain=localhost; HttpOnly; Path=/`;     
       
      
       return new Response(JSON.stringify(registerResponse.user),{

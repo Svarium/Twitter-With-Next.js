@@ -53,6 +53,20 @@
    
   }
 
+  .button-secondary{
+    @apply rounded-md;
+    @apply bg-gray-50;
+    @apply text-blue-400;
+    @apply px-6;
+    @apply py-2;
+  }
+
+  .button-secondary:hover{
+    
+    @apply bg-gray-100;
+   
+  }
+
 
   .link-primary{
     @apply font-semibold;

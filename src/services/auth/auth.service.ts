@@ -40,10 +40,9 @@ class AuthService {
          sessionId:sessionId,
          user: loginResponse.user,
          expireAt: expireAt
-     };              
+     };   
+
     }
-
-
         async getAccessToken(sessionId?: string): Promise<string> {       
         if(!sessionId) throw new AccessDeniedError("Session ID is not valid anymore")    
         const accesToken = await this.client.get(sessionId)        
@@ -55,6 +54,10 @@ class AuthService {
         return await this.client.get(key) 
     }
 
+
+    async logout(sessionId:string): Promise<void> {
+        await this.client.del(sessionId); 
+    }
 
    
 }
