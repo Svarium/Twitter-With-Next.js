@@ -8,7 +8,7 @@ export type LoginResponseType = {
 export type AuthResponseType = {
     sessionId:string;
     user: UserType;
-    expireAt: string;
+    expireAt: number;
 }
 
 export type RedisResponseType = {

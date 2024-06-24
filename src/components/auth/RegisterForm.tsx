@@ -36,7 +36,8 @@ const RegisterForm = () => {
         try {
             const loginResponse = await authApi.register(data.username, data.password, data.name, data.photoUrl)
             console.log(JSON.stringify(loginResponse));
-            router.push("/")
+            router.push("/");
+            router.refresh();
         } catch (e) {
             if(e instanceof ConflictError){
                 setServerError("El nombre de usuario ya existe")

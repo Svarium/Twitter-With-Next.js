@@ -5,6 +5,7 @@ import ExploreApi from "@/services/explore/explore.service";
 import Link from "next/link";
 import { FC, PropsWithChildren } from "react";
 
+
 const LINKS = [{title:'Inicio', href:'/'},
 {title:'Explorar', href:'/explore'},
 {title:'Perfil', href:'/profile',
@@ -16,6 +17,7 @@ const UsersLayout: FC<PropsWithChildren> = async ({ children }) => {
   const usersPromise =  ExploreApi.getFollowRecomendations(0,5);
 
   const [hashes, users] = await Promise.all([hashesPromise, usersPromise]);
+  
 
   return <>
     <div className="w-full h-full grid grid-cols-12 gap-4 px-4">

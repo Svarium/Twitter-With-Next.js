@@ -1,14 +1,22 @@
 'use client'
-
 import authApi from "@/services/auth/auth.api";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+type NavbarProps = {
+    loggedUsername?:string
+}
 
 
+const NavBar = ({loggedUsername}: NavbarProps)=> {
+    
 
-const NavBar = () => {
+    const router = useRouter();
 
     const logout = async () => {
         await authApi.logout()
+        router.push('/login')
+        router.refresh();
     }
  
     return <>
@@ -19,9 +27,10 @@ const NavBar = () => {
             LOGO
             </div>         
             </Link>
+           { loggedUsername &&
             <div>
                 <button className="button-secondary" onClick={() => logout()}>Cerrar Sesión</button>
-            </div>       
+            </div>  }     
     </nav>
     </header>
     </>

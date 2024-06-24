@@ -1,4 +1,5 @@
 import authService from "@/services/auth/auth.service";
+import { cookies } from "next/headers";
 import { type NextRequest } from "next/server";
 
 
@@ -13,11 +14,11 @@ export async function POST(request: NextRequest) {
          await authService.logout(sessionId)
       }   
      
-      const expireDate = new Date(1970,1,1,1,1,1)
+      cookies().delete('SocialSessionID')
+      cookies().delete('SocialUsername')
 
       return new Response(JSON.stringify({}),{
-         status:200,
-         headers: {'Set-Cookie': `SocialSessionID=; Expires=${expireDate.toUTCString()};Domain=localhost; HttpOnly; Path=/`},
+         status:200
       })
 
 
