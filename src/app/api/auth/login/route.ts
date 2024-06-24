@@ -1,16 +1,9 @@
 import { AccessDeniedError } from "@/services/common/http.errors";
-import * as yup from "yup";
 import authService from "@/services/auth/auth.service";
-
-const schema = yup.object({
-   username: yup.string().required(),
-   password: yup.string().required()
-}).required();
-
+import LoginScheme from "@/schemes/login.scheme";
 
 export async function POST(request: Request) {
-
-   const {username, password} = await schema.validate(await request.json());
+   const {username, password} = await LoginScheme.validate(await request.json());
    
 
    try {      

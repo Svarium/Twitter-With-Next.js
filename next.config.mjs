@@ -16,7 +16,15 @@ const nextConfig = {
             hostname:'i.pinimg.com',
             port:'',
             pathname:'/**'
-          },   
+          },  
+          
+          {
+            protocol:'https',
+            hostname:'pbs.twimg.com',
+            port:'',
+            pathname:'/**'
+          },  
+         
     ],
 
     },
