@@ -45,7 +45,8 @@ export class HttpBaseAPI {
             body: JSON.stringify(body)
          });
      
-         if(!res.ok){
+         if(!res.ok){            
+            
              if (res.status === 403){
                  throw new AccessDeniedError("User has no access")
              }

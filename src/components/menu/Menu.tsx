@@ -21,7 +21,7 @@ const Menu = ({links}: MenuProps) => {
         <ul className="mb-4 w-full">
             {links && links.map((link, index) => 
             <li key={`menu-link${index}`} 
-            className="text-2xl w-full  hover:bg-blue-400 hover:text-white">
+            className="text-2xl w-full cursor-pointer  hover:bg-blue-400 hover:text-white">
                <div className="p-2  w-full flex" onClick={() => onGoToLink(link.href)}>{link.title}</div>
                 </li> 
             )}           
